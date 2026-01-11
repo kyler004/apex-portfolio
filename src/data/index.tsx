@@ -1,28 +1,42 @@
+import {
+  Target,
+  Laptop,
+  Palette,
+  TrendingUp,
+  Rocket,
+  ShoppingBag,
+  Dumbbell,
+  Bitcoin,
+  Code,
+  PenTool,
+  BarChart,
+} from "lucide-react";
+
 // For Services Section
 export const services = [
   {
     title: "Brand Strategy",
     description:
       "Building authentic brand identities that resonate with your audience and stand out in the market.",
-    icon: "🎯",
+    icon: <Target size={48} />,
   },
   {
     title: "Web Development",
     description:
       "Crafting high-performance websites and web applications with cutting-edge technologies.",
-    icon: "💻",
+    icon: <Laptop size={48} />,
   },
   {
     title: "UI/UX Design",
     description:
       "Designing intuitive and beautiful interfaces that users love to interact with.",
-    icon: "✨",
+    icon: <Palette size={48} />,
   },
   {
     title: "Digital Marketing",
     description:
       "Strategic campaigns that drive growth and maximize your digital presence.",
-    icon: "📈",
+    icon: <TrendingUp size={48} />,
   },
 ];
 
@@ -31,25 +45,25 @@ export const projects = [
   {
     title: "TechFlow SaaS",
     category: "Web Development",
-    image: "🚀",
+    image: <Rocket size={72} />,
     gradient: "from-blue-600 to-cyan-600",
   },
   {
     title: "Luxe Fashion",
     category: "Brand Strategy",
-    image: "👗",
+    image: <ShoppingBag size={72} />,
     gradient: "from-pink-600 to-rose-600",
   },
   {
     title: "FitLife App",
     category: "UI/UX Design",
-    image: "💪",
+    image: <Dumbbell size={72} />,
     gradient: "from-green-600 to-emerald-600",
   },
   {
     title: "Crypto Exchange",
     category: "Web Development",
-    image: "₿",
+    image: <Bitcoin size={72} />,
     gradient: "from-orange-600 to-amber-600",
   },
 ];
@@ -129,8 +143,16 @@ export const testimonials = [
 
 // For Team
 export const team = [
-    { name: 'Alex Morgan', role: 'Creative Director', emoji: '🎨' },
-    { name: 'Jordan Lee', role: 'Lead Developer', emoji: '👨‍💻' },
-    { name: 'Sam Rivera', role: 'UX Designer', emoji: '✏️' },
-    { name: 'Casey Kim', role: 'Brand Strategist', emoji: '📊' },
-  ];
+  {
+    name: "Alex Morgan",
+    role: "Creative Director",
+    emoji: <Palette size={72} />,
+  },
+  { name: "Jordan Lee", role: "Lead Developer", emoji: <Code size={72} /> },
+  { name: "Sam Rivera", role: "UX Designer", emoji: <PenTool size={72} /> },
+  {
+    name: "Casey Kim",
+    role: "Brand Strategist",
+    emoji: <BarChart size={72} />,
+  },
+];

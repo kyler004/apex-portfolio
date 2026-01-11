@@ -1,19 +1,31 @@
 import React from "react";
 import { testimonials } from "../data";
 import { Star } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Testimonials: React.FC = () => {
   return (
     <section id="testimonials" className="py-20 px-6 bg-slate-900/50">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-5xl md:text-6xl font-black">Client Love</h2>
           <p className="text-xl text-slate-400">what our client say about us</p>
-        </div>
+        </motion.div>
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div
+            <motion.div
               key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              whileHover={{ scale: 1.02 }}
               className="p-8 bg-slate-800/50 border border-slate-700 rounded-2xl"
             >
               <div className="flex gap-1 mb-4">
@@ -31,7 +43,7 @@ const Testimonials: React.FC = () => {
                 <div className="font-bold">{testimonial.author}</div>
                 <div className="text-slate-400 text-sm">{testimonial.role}</div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

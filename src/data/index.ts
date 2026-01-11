@@ -79,28 +79,28 @@ export const steps = [
 ];
 
 // For Stats
-export const stats = [
-  {
-    icon: <Briefcase className="w-8 h-8" />,
-    value: "200+",
-    label: "Projects Completed",
-  },
-  {
-    icon: <Users className="w-8 h-8" />,
-    value: "150+",
-    label: "Happy Clients",
-  },
-  {
-    icon: <TrendingUp className="w-8 h-8" />,
-    value: "95%",
-    label: "Client Retention",
-  },
-  {
-    icon: <Star className="w-8 h-8" />,
-    value: "4.9/5",
-    label: "Average Rating",
-  },
-];
+// export const stats = [
+//   {
+//     icon: <Briefcase className="w-8 h-8" />,
+//     value: "200+",
+//     label: "Projects Completed",
+//   },
+//   {
+//     icon: <Users className="w-8 h-8" />,
+//     value: "150+",
+//     label: "Happy Clients",
+//   },
+//   {
+//     icon: <TrendingUp className="w-8 h-8" />,
+//     value: "95%",
+//     label: "Client Retention",
+//   },
+//   {
+//     icon: <Star className="w-8 h-8" />,
+//     value: "4.9/5",
+//     label: "Average Rating",
+//   },
+// ];
 
 // For testimonials
 export const testimonials = [
@@ -128,7 +128,7 @@ export const testimonials = [
 ];
 
 // For Team
-const team = [
+export const team = [
     { name: 'Alex Morgan', role: 'Creative Director', emoji: '🎨' },
     { name: 'Jordan Lee', role: 'Lead Developer', emoji: '👨‍💻' },
     { name: 'Sam Rivera', role: 'UX Designer', emoji: '✏️' },

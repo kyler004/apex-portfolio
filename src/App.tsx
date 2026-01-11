@@ -5,6 +5,10 @@ import Services from "./components/Services";
 import FeaturedWork from "./components/FeaturedWork";
 import Process from "./components/Process";
 import Stats from "./components/Stats";
+import Testimonials from "./components/Testimonials";
+import Team from "./components/Team";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 const App: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -14,11 +18,15 @@ const App: React.FC = () => {
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
       />
-      < Hero />
-      <Services/>
-      <FeaturedWork/>
-      <Process/>
+      <Hero />
+      <Services />
+      <FeaturedWork />
+      <Process />
       <Stats />
+      <Testimonials />
+      <Team />
+      <Contact />
+      <Footer />
     </div>
   );
 };

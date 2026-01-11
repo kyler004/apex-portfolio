@@ -139,6 +139,27 @@ export const testimonials = [
     role: "Director, FitLife",
     rating: 5,
   },
+  {
+    quote:
+      "The best agency we've worked with. Professional, creative, and timely.",
+    author: "David Park",
+    role: "CTO, FutureScale",
+    rating: 5,
+  },
+  {
+    quote:
+      "Our digital presence has never looked better. Truly world-class work.",
+    author: "Jessica Chang",
+    role: "VP Marketing, Sola",
+    rating: 5,
+  },
+  {
+    quote:
+      "Exceptional quality and support. They really understood our vision.",
+    author: "Michael Ross",
+    role: "Founder, GreenTech",
+    rating: 4,
+  },
 ];
 
 // For Team

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navigation from "./components/Navigation";
 import Hero from "./components/Hero";
+import Services from "./components/Services";
 
 const App: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -11,6 +12,7 @@ const App: React.FC = () => {
         setMobileMenuOpen={setMobileMenuOpen}
       />
       < Hero />
+      <Services/>
     </div>
   );
 };

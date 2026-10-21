@@ -1,117 +1,138 @@
-import React from "react";
-import { ArrowRight, ChevronDown } from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { ArrowRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import ShaderBackground from "./cinematic/ShaderBackground";
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  /** Becomes true once the preloader curtain has lifted. */
+  ready: boolean;
+}
+
+const ease = [0.76, 0, 0.24, 1] as const;
+
+/** One line of headline text, revealed upward from behind a mask. */
+const MaskLine: React.FC<{
+  children: React.ReactNode;
+  delay: number;
+  ready: boolean;
+  className?: string;
+}> = ({ children, delay, ready, className = "" }) => (
+  <span className="block overflow-hidden pb-[0.12em] -mb-[0.12em]">
+    <motion.span
+      initial={{ y: "110%", rotate: 2 }}
+      animate={ready ? { y: 0, rotate: 0 } : undefined}
+      transition={{ duration: 1.2, delay, ease }}
+      className={`block origin-left ${className}`}
+    >
+      {children}
+    </motion.span>
+  </span>
+);
+
+const Hero: React.FC<HeroProps> = ({ ready }) => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  // Slow push-in on the backdrop, content drifts up and fades as you leave.
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.25]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const barH = useTransform(scrollYProgress, [0, 0.5], ["7vh", "0vh"]);
+
   return (
-    <section className="relative min-h-screen pt-32 pb-20 px-6 overflow-hidden flex flex-col justify-center">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-purple-900/20 via-slate-950 to-pink-900/20" />
+    <section
+      ref={ref}
+      className="relative h-svh min-h-170 overflow-hidden flex flex-col justify-center"
+    >
+      <motion.div style={{ scale: bgScale }} className="absolute inset-0">
+        <ShaderBackground />
+      </motion.div>
 
-      {/* Animated Blobs */}
+      {/* Letterbox bars slide away as the film "opens up" */}
       <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-          x: [0, 50, 0],
-          y: [0, 30, 0],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-20 left-10 w-72 h-72 bg-purple-600/30 rounded-full blur-3xl"
+        style={{ height: barH }}
+        className="absolute top-0 inset-x-0 bg-black z-20 pointer-events-none"
       />
       <motion.div
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.3, 0.6, 0.3],
-          x: [0, -40, 0],
-          y: [0, -50, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-        className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/30 rounded-full blur-3xl"
+        style={{ height: barH }}
+        className="absolute bottom-0 inset-x-0 bg-black z-20 pointer-events-none"
       />
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative max-w-7xl mx-auto text-center"
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-10 max-w-7xl w-full mx-auto px-6"
       >
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-6xl md:text-8xl font-black mb-6 leading-tight pb-2"
-        >
-          We Create
-          <span
-            className="block bg-linear-to-r from-purple-500 via-pink-500 to-orange-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient"
-            style={{ animation: "gradient 4s linear infinite" }}
-          >
-            Bold Experiences
-          </span>
-        </motion.h1>
-
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-          @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-        `,
-          }}
-        />
-
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto"
+          initial={{ opacity: 0 }}
+          animate={ready ? { opacity: 1 } : undefined}
+          transition={{ delay: 0.2, duration: 1 }}
+          className="text-xs md:text-sm uppercase tracking-[0.5em] text-accent mb-8"
         >
-          A creative agency that transforms ambitious ideas into powerful
-          digital products that users love.
+          Creative Studio — Est. 2026
         </motion.p>
+
+        <h1 className="font-display font-light text-[clamp(3.5rem,11vw,10rem)] leading-[0.92] text-slate-50">
+          <MaskLine delay={0.3} ready={ready}>
+            We make
+          </MaskLine>
+          <MaskLine delay={0.45} ready={ready} className="italic text-accent">
+            bold experiences
+          </MaskLine>
+          <MaskLine delay={0.6} ready={ready}>
+            worth watching.
+          </MaskLine>
+        </h1>
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          initial={{ opacity: 0, y: 24 }}
+          animate={ready ? { opacity: 1, y: 0 } : undefined}
+          transition={{ delay: 1.2, duration: 1, ease: "easeOut" }}
+          className="mt-12 flex flex-col md:flex-row md:items-end md:justify-between gap-10"
         >
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 0 20px rgba(168, 85, 247, 0.5)",
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="group px-8 py-4 bg-linear-to-r from-purple-600 to-pink-600 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center justify-center gap-2"
-          >
-            Start Your Project
-            <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05, borderColor: "rgba(168, 85, 247, 0.8)" }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 border-2 border-slate-700 rounded-full font-bold text-lg hover:border-purple-500 transition-all"
-          >
-            View Our Work
-          </motion.button>
+          <p className="text-lg md:text-xl text-slate-300 max-w-md font-light leading-relaxed">
+            A creative agency that turns ambitious ideas into digital products
+            people remember.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="#contact"
+              className="group px-8 py-4 bg-accent text-slate-950 rounded-full font-medium flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors duration-500"
+            >
+              Start Your Project
+              <ArrowRight
+                size={18}
+                className="group-hover:translate-x-1 transition-transform"
+              />
+            </a>
+            <a
+              href="#work"
+              className="px-8 py-4 border border-slate-600 rounded-full font-medium text-center hover:border-accent hover:text-accent transition-colors duration-500"
+            >
+              View Our Work
+            </a>
+          </div>
         </motion.div>
       </motion.div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ delay: 1.5, duration: 1, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-slate-400"
+        animate={ready ? { opacity: 1 } : undefined}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-[9vh] left-6 md:left-10 z-30 flex items-center gap-4 text-[10px] uppercase tracking-[0.4em] text-slate-400"
       >
-        <ChevronDown size={32} />
+        <span className="relative block w-px h-12 bg-slate-700 overflow-hidden">
+          <motion.span
+            animate={{ y: ["-100%", "100%"] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-x-0 h-1/2 bg-accent"
+          />
+        </span>
+        Scroll
       </motion.div>
     </section>
   );

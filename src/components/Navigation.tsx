@@ -25,9 +25,9 @@ const Navigation: React.FC<NavigationProps> = ({
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.9, delay: 3.2, ease: [0.76, 0, 0.24, 1] }}
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-slate-950/80 backdrop-blur-lg border-b border-slate-800 py-4"
@@ -37,8 +37,8 @@ const Navigation: React.FC<NavigationProps> = ({
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-2xl font-bold bg-linear-to-r from-purple-500 to-orange-500 bg-clip-text text-transparent cursor-pointer">
-            APEX.
+          <div className="font-display text-2xl font-light tracking-tight text-slate-50 cursor-pointer">
+            APEX<span className="text-accent">.</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -56,7 +56,7 @@ const Navigation: React.FC<NavigationProps> = ({
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-2 bg-linear-to-r from-purple-600 to-pink-600 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-75"
+              className="px-6 py-2 border border-accent text-accent rounded-full font-medium hover:bg-accent hover:text-slate-950 transition-colors duration-500"
             >
               Let's Talk
             </motion.button>

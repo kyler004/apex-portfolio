@@ -9,16 +9,25 @@ import Testimonials from "./components/Testimonials";
 import Team from "./components/Team";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import SmoothScroll from "./components/cinematic/SmoothScroll";
+import FilmOverlay from "./components/cinematic/FilmOverlay";
+import CustomCursor from "./components/cinematic/CustomCursor";
+import Preloader from "./components/cinematic/Preloader";
 
 const App: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [ready, setReady] = useState(false);
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <SmoothScroll />
+      <FilmOverlay />
+      <CustomCursor />
+      <Preloader onDone={() => setReady(true)} />
       <Navigation
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
       />
-      <Hero />
+      <Hero ready={ready} />
       <Services />
       <FeaturedWork />
       <Process />

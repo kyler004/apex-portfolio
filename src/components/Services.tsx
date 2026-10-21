@@ -1,6 +1,17 @@
 import React from "react";
 import { services } from "../data";
 import { motion } from "framer-motion";
+import ParallaxPills, { type Pill } from "./cinematic/ParallaxPills";
+
+const disciplines: Pill[] = [
+  { label: "Brand Strategy", x: 14, y: 30, depth: 1.2 },
+  { label: "Motion Design", x: 38, y: 20, depth: 0.7, accent: true },
+  { label: "Web Development", x: 66, y: 32, depth: 1.4 },
+  { label: "UI/UX", x: 88, y: 18, depth: 0.6 },
+  { label: "Art Direction", x: 24, y: 72, depth: 0.8 },
+  { label: "Creative Technology", x: 52, y: 66, depth: 1.5 },
+  { label: "Identity", x: 80, y: 74, depth: 0.9, accent: true },
+];
 
 const Services: React.FC = () => (
   <section id="services" className="py-20 px-6 bg-slate-900/50">
@@ -17,6 +28,8 @@ const Services: React.FC = () => (
           Full-service solutions for modern brands
         </p>
       </motion.div>
+
+      <ParallaxPills pills={disciplines} className="h-64 md:h-72 mb-16" />
 
       <div className="grid md:grid-cols-4 gap-6">
         {services.map((service, index) => (
